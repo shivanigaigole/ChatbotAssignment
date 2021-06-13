@@ -1,0 +1,64 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - know_capital
+  - know_population
+
+actions:
+  - action_get_countries
+  - action_know_capital
+  - action_know_population
+  - action_all_slot_reset
+  - validate_capital_form
+  - validate_population_form
+
+
+entities:
+  - countryname
+  - GPE
+
+slots:
+  countryname:
+    type: text
+    influence_conversation: false
+    auto_fill: false
+  countries: 
+    type: list
+    influence_conversation: false
+
+responses:
+  utter_default:
+  - text: Something went wrong! Please re-phrase your question. 
+
+  utter_greet:
+  - text: "Hey! I am your virtual assistant. How can I help you?"
+
+  utter_goodbye:
+  - text: "Goodbye.! Have nice day."
+
+  utter_ask_countryname:
+  - text: "Please select country name from bleow.\n {countries}"
+
+
+forms:
+  capital_form:
+    countryname:
+      - type: from_entity
+        entity: GPE
+      - type: from_text
+
+  population_form:
+    countryname:
+      - type: from_entity
+        entity: GPE
+      - type: from_text
+
+  
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -1,0 +1,36 @@
+version: "2.0"
+
+stories:
+
+- story: greet one
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: user goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: check capital
+  steps:
+  - intent: know_capital
+  - action: action_get_countries
+  - action: capital_form
+  - active_loop: capital_form
+  - active_loop: null
+  - action: action_know_capital
+  - action: action_all_slot_reset
+
+- story: check population
+  steps:
+  - intent: know_population
+  - action: action_get_countries
+  - action: population_form
+  - active_loop: population_form
+  - active_loop: null
+  - action: action_know_population
+  - action: action_all_slot_reset
+
+
+  

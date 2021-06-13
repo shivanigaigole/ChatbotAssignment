@@ -1,0 +1,27 @@
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: en
+
+pipeline:
+  - name: WhitespaceTokenizer
+  - name: LexicalSyntacticFeaturizer
+  - name: CountVectorsFeaturizer
+    token_pattern: (?u)\b\w+\b
+  - name: DIETClassifier
+    epochs: 100
+  - name: EntitySynonymMapper
+  - name: SpacyNLP
+  - name: SpacyEntityExtractor
+    dimensions: ["GPE"]
+
+policies:
+- name: RulePolicy
+- name: MemoizationPolicy
+- name: TEDPolicy
+  max_history: 5
+  epochs: 100
+- name: RulePolicy
+- name: FallbackPolicy
+  nlu_threshold: 0.4
+  core_threshold: 0.3
+  fallback_action_name: 'utter_default'
